@@ -1,92 +1,37 @@
-var stripe = Stripe('pk_live_vK6s28I2oClOGtckptjyYn4c');
+function main() {
+    console.log("ok, it wotks");
 
-var elements = stripe.elements();
-var cardElement = elements.create('card');
-cardElement.mount('#card-element');
+    var stripe = Stripe('pk_live_vK6s28I2oClOGtckptjyYn4c');
 
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
 
-(function() {
-  'use strict';
+    var cardholderName = document.getElementById('cardholder-name');
+    var cardButton = document.getElementById('card-button');
+    var clientSecret = cardButton.dataset.secret;
 
-  var elements = stripe.elements({
-    fonts: [
-      {
-        cssSrc: 'https://fonts.googleapis.com/css?family=Source+Code+Pro',
-      },
-    ],
-    // Stripe's examples are localized to specific languages, but if
-    // you wish to have Elements automatically detect your user's locale,
-    // use `locale: 'auto'` instead.
-    locale: window.__exampleLocale
-  });
-
-  // Floating labels
-  var inputs = document.querySelectorAll('.cell.example.example2 .input');
-  Array.prototype.forEach.call(inputs, function(input) {
-    input.addEventListener('focus', function() {
-      input.classList.add('focused');
+    cardButton.addEventListener('click', function(ev) {
+    stripe.handleCardPayment(
+        clientSecret, cardElement, {
+        payment_method_data: {
+            billing_details: {name: cardholderName.value}
+        }
+        }
+    ).then(function(result) {
+        if (result.error) {
+            console.log('Error');
+            console.log(result.error);
+        // Display error.message in your UI.
+        } else {
+            console.log('Allright');
+        // The payment has succeeded. Display a success message.
+        }
     });
-    input.addEventListener('blur', function() {
-      input.classList.remove('focused');
     });
-    input.addEventListener('keyup', function() {
-      if (input.value.length === 0) {
-        input.classList.add('empty');
-      } else {
-        input.classList.remove('empty');
-      }
-    });
-  });
-
-  var elementStyles = {
-    base: {
-      color: '#32325D',
-      fontWeight: 500,
-      fontFamily: 'Source Code Pro, Consolas, Menlo, monospace',
-      fontSize: '16px',
-      fontSmoothing: 'antialiased',
-
-      '::placeholder': {
-        color: '#CFD7DF',
-      },
-      ':-webkit-autofill': {
-        color: '#e39f48',
-      },
-    },
-    invalid: {
-      color: '#E25950',
-
-      '::placeholder': {
-        color: '#FFCCA5',
-      },
-    },
-  };
-
-  var elementClasses = {
-    focus: 'focused',
-    empty: 'empty',
-    invalid: 'invalid',
-  };
-
-  var cardNumber = elements.create('cardNumber', {
-    style: elementStyles,
-    classes: elementClasses,
-  });
-  cardNumber.mount('#example2-card-number');
-
-  var cardExpiry = elements.create('cardExpiry', {
-    style: elementStyles,
-    classes: elementClasses,
-  });
-  cardExpiry.mount('#example2-card-expiry');
-
-  var cardCvc = elements.create('cardCvc', {
-    style: elementStyles,
-    classes: elementClasses,
-  });
-  cardCvc.mount('#example2-card-cvc');
-
-  registerElements([cardNumber, cardExpiry, cardCvc], 'example2');
-})();
 
 
+    console.log("main ends");
+}
+
+main();

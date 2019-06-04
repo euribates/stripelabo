@@ -1,10 +1,6 @@
 {% extends 'base.html' %}{% load static %}
 
 
-{% block javascript %}
-    <script src="{% static 'payments/js/single.js' %}"></script>
-{% endblock javascript %}
-
 {% block css %}
     <link rel="stylesheet" href="{% static 'payments/css/single.css' %}">
 {% endblock css %}
@@ -14,8 +10,8 @@
 
 <p>Single payment for an amount of {{ amount }} {{ currency }}.</p>
 
-
 <input id="cardholder-name" type="text">
+
 <!-- placeholder for Elements -->
 <div id="card-element"></div>
 
@@ -28,3 +24,9 @@
 <p>Status of intent is now: <code>{{ status }}</code></p>
 
 {% endblock content %}
+
+
+{% block javascript %}
+    <script src="{% static 'payments/js/single.js' %}"></script>
+{% endblock javascript %}
+
