@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from prettyconf import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -121,7 +122,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STRIPE_PUBLIC_KEY = 'stripe-public-key'
-STRIPE_API_KEY = 'your-stripe-secret-key'
-
-
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='your-stripe-public-key')
+STRIPE_API_KEY = config('STRIPE_API_KEY', default='your-stripe-secret-key')
