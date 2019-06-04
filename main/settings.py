@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STRIPE_PUBLIC_KEY = 'pk_live_vK6s28I2oClOGtckptjyYn4c'
-STRIPE_API_KEY = 'sk_test_2raYjNBqlE50fzN1O4vObiN8'
+STRIPE_PUBLIC_KEY = 'stripe-public-key'
+STRIPE_API_KEY = 'your-stripe-secret-key'
 
 
