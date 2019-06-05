@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<dl>
+    {% for name,value in post.items %}
+    <dt> {{ name }} </dt>
+    <dd> {{ value }} </dd>
+    {% endfor %}
+</dl>
+
+{% endblock content %}
+

@@ -4,10 +4,10 @@ from django.conf import settings
 import stripe
 from . import models
 
+stripe.api_key = settings.STRIPE_API_KEY
 # Create your views here.
 
 def single_payment(request):
-    stripe.api_key = settings.STRIPE_API_KEY
     intent = stripe.PaymentIntent.create(
         amount=999,
         currency='eur',
@@ -27,3 +27,14 @@ def single_payment(request):
         'status': intent.status,
         'intent': intent,
         })
+
+
+def charge_payment(request):
+    
+    return render(request, 'payments/charge.html', {
+        'path_info': request.path_info,
+        'keys': request.POST.keys(),
+        'post': request.POST,
+        })
+
+

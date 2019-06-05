@@ -13,10 +13,10 @@
   <body>
   <section class="section">
     <div class="container">
+    {% include 'includes/navbar.html' %}
       <h1 class="title">
         Stripe lab
       </h1>
-    {% include 'includes/navbar.html' %}
 
 {% block content %}
       <p class="subtitle">
@@ -33,7 +33,7 @@
   </div>
   <div class="message-body">
       <pre>
-      {{ intent|pprint }}
+      {{ intent.id }}
       </pre>
   </div>
 </article>
