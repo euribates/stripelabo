@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import json
 
 from django.shortcuts import render
 from django.conf import settings
@@ -18,6 +19,10 @@ stripe.api_key = settings.STRIPE_API_KEY
 
 def webhook(request):
     result = list(request.POST.items())
+    logger.error("request.body is %s (%s)", request.body, type(request.body))
+    event = json.loads(request.body)
+    logger.error("event is %s (%s)", json.dumps(event, indent=4), type(event))
+    logger.error("result is %s (%s)", result, type(result))
     return render(request, 'payments/webhook.html', {
         'request': request,
         'locals': locals(),

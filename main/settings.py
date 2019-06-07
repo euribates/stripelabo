@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY', default='(!$2o1gm9jx+c%0scwezc-uzi&y3ee8id*i(9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '67c73a18.ngrok.io']
 
 
 # Application definition
