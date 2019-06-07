@@ -1,0 +1,17 @@
+extends 
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Webhook for Stripe</h2>
+
+  <p>Results ({{ result|length }}): </p>
+  <ul>
+      {% for n,v in result %}
+      <li>{{ n }}: {{ v }} </li>
+      {% endfor %}
+  </ul>
+
+  <p>locals: {{ locals|pprint }} </p>
+
+{% endblock content %}

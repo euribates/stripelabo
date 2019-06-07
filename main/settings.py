@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from prettyconf import config
 
+import django.utils.log
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -124,3 +126,11 @@ STATIC_URL = '/static/'
 
 STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='your-stripe-public-key')
 STRIPE_API_KEY = config('STRIPE_API_KEY', default='your-stripe-secret-key')
+
+DEFAULT_LOGGING = django.utils.log.DEFAULT_LOGGING
+
+DEFAULT_LOGGING['loggers']['payments'] = {
+    'handlers': ['console'],
+    'level': 'INFO',
+    }
+

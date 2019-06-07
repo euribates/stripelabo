@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   
+<h2 class="subtitle">There are {{ customers|length }} active customers</h2>
+<table class="table">
+    <thead>
+    <tr>
+    <th>Id.</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Balance</th>
+    </tr>
+    </thead>
+    {% for customer in customers %}
+    <tr>
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.balance }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>{{ customer.0.keys|pprint}}</p>
+
+{% endblock content %}
+
