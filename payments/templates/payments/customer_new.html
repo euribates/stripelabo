@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block content %}
+
+    <h3 class="title">Customers</h3>
+    <h4>New customer</h4>
+
+
+    <form method="POST" action=".">
+   {% csrf_token %} 
+    <div class="field">
+        {% crispy_field form.first_name 'class' 'input is-success' %}
+        {% if form.first_name.errors %}
+            <ul class="is-danger">
+                {% for error in form.first_name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="field">
+        {% crispy_field form.last_name 'class' 'input is-success' %}
+    </div>
+
+    <div class="field">
+        {% crispy_field form.email 'class' 'input is-success' %}
+    </div>
+
+    <div class="field">
+        {% crispy_field form.stripe_id 'class' 'input is-success' %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add customer</button>
+
+  </div>
+</div>
+
+{% endblock content %}

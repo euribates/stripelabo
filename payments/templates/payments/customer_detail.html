@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>{{ customer.full_name }}</h2>
+    <h3>Email: {{ customer.email }}</h3>
+    <p>Stripe integration: {% if customer.stripe_id %}
+        {{ customer.stripe_id }}
+    {% else %}
+        <i class="tag is-warning">Undefined</i>
+         
+    {% endif %}</p>
+
+
+
+    <hr>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-title">Operations </div>
+        </div>
+        <div class="card-content">
+
+            {% if not customer.stripe_id %}
+                Create Stripe customer account
+            {% endif %}
+            
+        </div>
+    </div>
+
+
+{% endblock content %}

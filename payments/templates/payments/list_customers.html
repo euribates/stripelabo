@@ -9,20 +9,28 @@
     <th>Id.</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Balance</th>
+    <th>Stripe Id.</th>
+    <th>Delete</th>
     </tr>
     </thead>
     {% for customer in customers %}
     <tr>
-        <td>{{ customer.id }}</td>
-        <td>{{ customer.name }}</td>
+        <th><a href="{% url 'payments:view_customer' customer.pk %}">{{ customer.pk }}</a></th>
+        <td>{{ customer.full_name }}</td>
         <td>{{ customer.email }}</td>
-        <td>{{ customer.balance }}</td>
+        <td><tt>{{ customer.stripe_id }}</tt></td>
+        <td><a href="{% url 'payments:delete_customer' pk=customer.pk %}" class="delete is-small"></a></td>
     </tr>
     {% endfor %}
+    <tfooter>
+    <tr>
+    <th colspan="4"></th>
+    <td> <a class="buton is-info" href="{% url 'payments:new_customer' %}"><i class="fas fa-plus"></i></a>
+    </td>
+    </tr>
+    </thead>
 </table>
 
-<p>{{ customer.0.keys|pprint}}</p>
 
 {% endblock content %}
 

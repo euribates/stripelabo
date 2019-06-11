@@ -4,11 +4,17 @@
 import logging
 import json
 
-from django.shortcuts import render
 from django.conf import settings
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
 
 import stripe
+
 from . import models
+from . import forms
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,13 +35,34 @@ def webhook(request):
         'result': result,
         })
 
+
 def list_customers(request):
     logger.info('View list_customers starts')
-    customers = stripe.Customer.list(limit=25)
-    logger.info('customers: %s', str(customers))
+    customers = models.Customer.objects.all()
     return render(request, 'payments/list_customers.html', {
         'customers': customers,
         })
+
+
+class CreateCustomerView(CreateView):
+
+    model = models.Customer
+    form_class = forms.NewCustomerForm
+    context_object_name = 'customer'
+    template_name = 'payments/customer_new.html'
+
+
+
+class DetailCustomerView(DetailView):
+    
+    model = models.Customer
+
+
+class DeleteCustomerView(DeleteView):
+    
+    model = models.Customer
+    context_object_name = 'customer'
+    success_url = reverse_lazy('payments:list_customers')
 
 
 def single_payment(request):
@@ -49,8 +76,6 @@ def single_payment(request):
         currency=intent.currency,
         status=intent.status,
         ).save()
-
-
     return render(request, 'payments/single.html', {
         'amount': intent.amount,
         'currency': intent.currency,
